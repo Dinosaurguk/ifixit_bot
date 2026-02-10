@@ -1,6 +1,5 @@
 <p align="center">
 <img width="894" height="352" alt="изображение" src="https://github.com/user-attachments/assets/9c480890-a7ef-4e7d-b902-bae3b2b40db3">
->
 </p>
 
 # iFixit Repair Telegram Bot
@@ -23,17 +22,24 @@
 
 Если забудешь, что искал вчера, команда /history покажет последние запросы.
 
+## Installation
+
+1. **Клонируй репозиторий:**
+   ```bash
+   git clone [сам код все дела](https://github.com/Dinosaurguk/ifixit_bot/blob/main/1.py)
+   cd ifixit-repair-bot
+
 ## Useful Links
 * https://ru.ifixit.com/ - сам сайт ifixit
 * https://ru.ifixit.com/api/2.0/doc/ - API документация
 
 
 ## Functionality & Libraries
-1. [requests](https://github.com/psf/requests)
-2. [urllib.parse](https://docs.python.org/3/library/urllib.parse.html)
-3. [html](https://docs.python.org/3/library/html.html)
-4. [squlite3](https://docs.python.org/3/library/sqlite3.html)
-5. [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
+1. [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) — Основной фреймворк для реализации логики бота и обработки команд.
+2. [requests](https://github.com/psf/requests) — Работа с iFixit API 2.0 для получения данных о категориях и шагах ремонта.
+3. [sqlite3](https://docs.python.org/3/library/sqlite3.html) — Локальное хранение истории поисковых запросов пользователей.
+4. [urllib.parse](https://docs.python.org/3/library/urllib.parse.html) — Формирование корректных URL-запросов к базе данных iFixit.
+5. [html](https://docs.python.org/3/library/html.html) — Безопасное отображение текста инструкций в интерфейсе Telegram.
 
-## Acknowledgments
-Особая благодарность команде [iFixit](https://www.ifixit.com) за их открытый [API](https://www.ifixit.com/api/2.0/doc), который позволяет разработчикам свободно использовать крупнейшую в мире базу знаний по ремонту. Этот проект создан с целью сделать инструкции по самостоятельному ремонту еще доступнее.
+## Acknowledgments & Mission
+Огромная благодарность команде [iFixit](https://www.ifixit.com) за их открытый [API](https://www.ifixit.com/api/2.0/doc) и приверженность философии **Right to Repair** (Право на ремонт). 
