@@ -2,7 +2,7 @@
 <img width="894" height="352" alt="изображение" src="https://github.com/user-attachments/assets/9c480890-a7ef-4e7d-b902-bae3b2b40db3">
 </p>
 
-![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.10+-yellou.svg)
 ![Telegram](https://img.shields.io/badge/Telegram-Bot-blue.svg)
 
 # iFixit Repair Telegram Bot
