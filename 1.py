@@ -67,12 +67,35 @@ async def handle_guide_selection(update: Update, context: ContextTypes.DEFAULT_T
         return
 
     title = guide_data.get('title', 'Инструкция')
-    intro = f"<b>🛠 {html.escape(title)}</b>\n\n"
-    await query.message.reply_text(intro, parse_mode='HTML')
+    difficulty = guide_data.get('difficulty', 'Не указана')
+    time_required = guide_data.get('time_required', 'Не указано')
+
+    # ФОРМИРУЕМ ССЫЛКУ НА САЙТ
+    raw_url = guide_data.get('url', '')
+    if raw_url:
+        if not raw_url.startswith('http'):
+            clean_url = f"https://ru.ifixit.com{raw_url if raw_url.startswith('/') else '/' + raw_url}"
+        else:
+            clean_url = raw_url.replace("www.ifixit.com", "ru.ifixit.com")
+    else:
+        clean_url = "https://ru.ifixit.com"
+
+    # СОЗДАЕМ КНОПКУ-ССЫЛКУ (она будет по центру под текстом)
+    link_keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton(text="🔗 Полная версия на сайте", url=clean_url)]
+    ])
+
+    intro = (
+        f"<b>🛠 {html.escape(title)}</b>\n\n"
+        f"📊 Сложность: {difficulty}\n"
+        f"⏳ Время: {time_required}\n\n"
+        f"<i>Ниже приведены пошаговые шаги:</i>"
+    )
+
+    # Отправляем интро с кнопкой-ссылкой
+    await query.message.reply_text(intro, parse_mode='HTML', reply_markup=link_keyboard)
 
     steps_list = guide_data.get('steps', [])
-
-    # ВВОДИМ СВОЙ СЧЕТЧИК, чтобы номера не сбрасывались
     global_step_counter = 1
 
     for i in range(0, len(steps_list), 3):
@@ -80,14 +103,10 @@ async def handle_guide_selection(update: Update, context: ContextTypes.DEFAULT_T
         chunk = steps_list[i:i + 3]
 
         for step in chunk:
-            # Используем наш счетчик вместо step.get('orderby')
             lines = [line.get('text_raw', '') for line in step.get('lines', [])]
             step_text = " ".join(lines)
-
             safe_text = html.escape(step_text)
             message_text += f"<b>Шаг {global_step_counter}</b>\n{safe_text}\n\n"
-
-            # Увеличиваем счетчик после каждого шага
             global_step_counter += 1
 
         image_url = None
@@ -102,7 +121,7 @@ async def handle_guide_selection(update: Update, context: ContextTypes.DEFAULT_T
             await query.message.reply_photo(photo=image_url, caption=message_text[:1024], parse_mode='HTML')
         else:
             await query.message.reply_text(message_text, parse_mode='HTML')
-            
+
 if __name__ == '__main__':
     # Вставьте ваш токен здесь
     TOKEN = ""
