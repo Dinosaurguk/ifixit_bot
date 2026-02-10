@@ -27,12 +27,17 @@
   <a href="README.md">
     <b>Русское описание</b>
   </a>
-  |
-  <a href="README_EN.md">
-    <b>English Version</b>
-  </a>
 </p>
+# iFixit Repair Telegram Bot
+<h1 align="left">
+   Telegram бот для поиска инструкций по ремонту техники
 
+## Architectural
+</h1>
+<p align="center">
+  <img width="1679" height="792" alt="изображение" src="https://github.com/user-attachments/assets/c3a83068-40b2-4ee1-84a8-6703e7c69264" />
+>
+</p>
 ## Usage
 1. Запуск поиска: Введи команду /repair и через пробел название гаджета.
         Пример: /repair iPhone 17 или /repair PlayStation.
