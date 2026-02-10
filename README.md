@@ -26,11 +26,6 @@
 <p align="center">
   <a href="README.md">
     <b>Русское описание</b>
-  </a>
-  |
-  <a href="README_EN.md">
-    <b>English Version</b>
-  </a>
 </p>
 
 # iFixit Repair Telegram Bot
