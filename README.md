@@ -18,7 +18,7 @@
   <a href="https://github.com/[[Логин](https://github.com/Dinosaurguk)]">
     <img src="https://img.shields.io/badge/Author-[Студент - Dinosauriguk]-orange.svg?style=flat-square" alt="Author" />
   </a>
-  <a href="https://t.me/[ИМЯ_ТВОЕГО_БОТА]">
+  <a href="https://t.me/[ifixit_bot]">
     <img src="https://img.shields.io/badge/Telegram-Bot-blue.svg?style=flat-square" alt="Telegram Bot" />
   </a>
 </p>
