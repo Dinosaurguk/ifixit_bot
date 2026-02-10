@@ -1,5 +1,6 @@
 <p align="center">
-<img width="926" height="384" alt="изображение" src="https://github.com/user-attachments/assets/835260f5-f3fa-466c-a622-3942fa30bb46" />
+<![Uploading черный лого(1).png…]()
+>
 </p>
 
 # iFixit Repair Telegram Bot
