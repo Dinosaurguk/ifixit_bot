@@ -7,6 +7,6 @@
    Telegram бот для поиска инструкций по ремонту техники 
 </h1>
 <p align="center">
-  <<img width="843" height="917" alt="изображение" src="https://github.com/user-attachments/assets/adc9f3e3-81b8-4368-9f62-03d919e37c48" />
+  <img width="457" height="915" alt="изображение" src="https://github.com/user-attachments/assets/d6504602-48be-43c3-afe8-a886e7077035" />
 >
 </p>
