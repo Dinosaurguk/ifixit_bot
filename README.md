@@ -5,7 +5,7 @@
 
 # iFixit Repair Telegram Bot
 <h1 align="left">
-   Telegram бот для поиска инструкций по ремонту техники/n 
+   Telegram бот для поиска инструкций по ремонту техники
 
 ## Architectural
 </h1>
