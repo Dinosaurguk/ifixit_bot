@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/[guk]/[[ИМЯ_РЕПО](https://github.com/Dinosaurguk/ifixit_bot/edit/main/README.md)]/releases">
+  <a href="https://github.com/[ТВОЙ_ЛОГИН]/[ИМЯ_РЕПО]/releases">
     <img src="https://img.shields.io/badge/Version-v1.0.0-brightgreen.svg?style=flat-square" alt="Latest Version" />
   </a>
-  <a href="https://github.com/[]/[ИМЯ_РЕПО]/actions">
+  <a href="https://github.com/[ТВОЙ_ЛОГИН]/[ИМЯ_РЕПО]/actions">
     <img src="https://img.shields.io/badge/Build-passing-brightgreen.svg?style=flat-square" alt="Build Status" />
   </a>
   <a href="https://www.python.org/downloads/">
@@ -15,10 +15,10 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License" />
   </a>
-  <a href="https://github.com/[Логин]">
-    <img src="https://img.shields.io/badge/Author-[Студент - Dinosauriguk]-orange.svg?style=flat-square" alt="Author" />
+  <a href="https://github.com/[ТВОЙ_ЛОГИН]">
+    <img src="https://img.shields.io/badge/Author-[ТВОЙ_НИК]-orange.svg?style=flat-square" alt="Author" />
   </a>
-  <a href="https://t.me/[ifixit_bot]">
+  <a href="https://t.me/[ИМЯ_ТВОЕГО_БОТА]">
     <img src="https://img.shields.io/badge/Telegram-Bot-blue.svg?style=flat-square" alt="Telegram Bot" />
   </a>
 </p>
@@ -26,17 +26,11 @@
 <p align="center">
   <a href="README.md">
     <b>Русское описание</b>
-</p>
-
-# iFixit Repair Telegram Bot
-<h1 align="left">
-   Telegram бот для поиска инструкций по ремонту техники
-
-## Architectural
-</h1>
-<p align="center">
-  <img width="1679" height="792" alt="изображение" src="https://github.com/user-attachments/assets/c3a83068-40b2-4ee1-84a8-6703e7c69264" />
->
+  </a>
+  |
+  <a href="README_EN.md">
+    <b>English Version</b>
+  </a>
 </p>
 
 ## Usage
@@ -52,8 +46,7 @@
 
 1. **Клонируй репозиторий:**
    ```bash
-   git clone https://github.com/Dinosaurguk/ifixit_bot/blob/main/1.py
-   cd ifixit-repair-bot
+   git clone https://github.com/Dinosaurguk/ifixit_bot.git
 
 ## Useful Links
 * https://ru.ifixit.com/ - сам сайт ifixit
