@@ -62,11 +62,11 @@
 
 
 ## Functionality & Libraries
-1. [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) — Основной фреймворк для реализации логики бота и обработки команд.
-2. [requests](https://github.com/psf/requests) — Работа с iFixit API 2.0 для получения данных о категориях и шагах ремонта.
-3. [sqlite3](https://docs.python.org/3/library/sqlite3.html) — Локальное хранение истории поисковых запросов пользователей.
-4. [urllib.parse](https://docs.python.org/3/library/urllib.parse.html) — Формирование корректных URL-запросов к базе данных iFixit.
-5. [html](https://docs.python.org/3/library/html.html) — Безопасное отображение текста инструкций в интерфейсе Telegram.
+1. [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
+2. [requests](https://github.com/psf/requests)
+3. [sqlite3](https://docs.python.org/3/library/sqlite3.html) 
+4. [urllib.parse](https://docs.python.org/3/library/urllib.parse.html) 
+5. [html](https://docs.python.org/3/library/html.html) 
 
 ## Acknowledgments & Mission
 Огромная благодарность команде [iFixit](https://www.ifixit.com) за их открытый [API](https://www.ifixit.com/api/2.0/doc) и приверженность философии **Right to Repair** (Право на ремонт). 
