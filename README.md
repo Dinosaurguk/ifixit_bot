@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/[ТВОЙ_ЛОГИН]/[ИМЯ_РЕПО]/releases">
+  <a href="https://github.com/[guk]/[[ИМЯ_РЕПО](https://github.com/Dinosaurguk/ifixit_bot/edit/main/README.md)]/releases">
     <img src="https://img.shields.io/badge/Version-v1.0.0-brightgreen.svg?style=flat-square" alt="Latest Version" />
   </a>
-  <a href="https://github.com/[ТВОЙ_ЛОГИН]/[ИМЯ_РЕПО]/actions">
+  <a href="https://github.com/[]/[ИМЯ_РЕПО]/actions">
     <img src="https://img.shields.io/badge/Build-passing-brightgreen.svg?style=flat-square" alt="Build Status" />
   </a>
   <a href="https://www.python.org/downloads/">
