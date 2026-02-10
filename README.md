@@ -34,3 +34,6 @@
 3. [html](https://docs.python.org/3/library/html.html)
 4. [squlite3](https://docs.python.org/3/library/sqlite3.html)
 5. [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
+
+## Acknowledgments
+Особая благодарность команде [iFixit](https://www.ifixit.com) за их открытый [API](https://www.ifixit.com/api/2.0/doc), который позволяет разработчикам свободно использовать крупнейшую в мире базу знаний по ремонту. Этот проект создан с целью сделать инструкции по самостоятельному ремонту еще доступнее.
