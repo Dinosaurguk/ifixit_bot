@@ -24,8 +24,8 @@
 Если забудешь, что искал вчера, команда /history покажет последние запросы.
 
 ## Useful Links
-https://ru.ifixit.com/ - сам сайт ifixit
-https://ru.ifixit.com/api/2.0/doc/ - API документация
+* https://ru.ifixit.com/ - сам сайт ifixit
+* https://ru.ifixit.com/api/2.0/doc/ - API документация
 
 
 ## Functionality & Libraries
