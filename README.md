@@ -70,3 +70,6 @@
 
 ## Acknowledgments & Mission
 Огромная благодарность команде [iFixit](https://www.ifixit.com) за их открытый [API](https://www.ifixit.com/api/2.0/doc) и приверженность философии **Right to Repair** (Право на ремонт). 
+
+## License
+Этот проект распространяется под лицензией MIT. Подробнее см. в файле [LICENSE](LICENSE).
