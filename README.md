@@ -1,5 +1,5 @@
 <p align="center">
-<![Uploading черный лого(1).png…]()
+<<img width="897" height="357" alt="изображение" src="https://github.com/user-attachments/assets/77d08e47-ac31-4014-8688-4045e4c36c98" >
 >
 </p>
 
