@@ -26,7 +26,7 @@
 
 1. **Клонируй репозиторий:**
    ```bash
-   git clone [сам код все дела](https://github.com/Dinosaurguk/ifixit_bot/blob/main/1.py)
+   git clone https://github.com/Dinosaurguk/ifixit_bot/blob/main/1.py
    cd ifixit-repair-bot
 
 ## Useful Links
