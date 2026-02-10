@@ -15,7 +15,7 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License" />
   </a>
-  <a href="https://github.com/[[Логин](https://github.com/Dinosaurguk)]">
+  <a href="https://github.com/[[Я](https://github.com/Dinosaurguk)]">
     <img src="https://img.shields.io/badge/Author-[Студент - Dinosauriguk]-orange.svg?style=flat-square" alt="Author" />
   </a>
   <a href="https://t.me/[ifixit_bot]">
