@@ -28,7 +28,7 @@
     <b>Русское описание</b>
   </a>
 </p>
-# iFixit Repair Telegram Bot
+## iFixit Repair Telegram Bot
 <h1 align="left">
    Telegram бот для поиска инструкций по ремонту техники
 
