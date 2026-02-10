@@ -1,3 +1,7 @@
+<p align="center">
+<img width="926" height="384" alt="изображение" src="https://github.com/user-attachments/assets/835260f5-f3fa-466c-a622-3942fa30bb46" />
+</p>
+
 # iFixit Repair Bot
 <h1 align="center">
    Telegram бот для поиска инструкций по ремонту техники 
