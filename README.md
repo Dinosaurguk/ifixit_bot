@@ -2,8 +2,36 @@
 <img width="894" height="352" alt="изображение" src="https://github.com/user-attachments/assets/9c480890-a7ef-4e7d-b902-bae3b2b40db3">
 </p>
 
-![Python](https://img.shields.io/badge/python-3.10+-yellou.svg)
-![Telegram](https://img.shields.io/badge/Telegram-Bot-blue.svg)
+<p align="center">
+  <a href="https://github.com/[ТВОЙ_ЛОГИН]/[ИМЯ_РЕПО]/releases">
+    <img src="https://img.shields.io/badge/Version-v1.0.0-brightgreen.svg?style=flat-square" alt="Latest Version" />
+  </a>
+  <a href="https://github.com/[ТВОЙ_ЛОГИН]/[ИМЯ_РЕПО]/actions">
+    <img src="https://img.shields.io/badge/Build-passing-brightgreen.svg?style=flat-square" alt="Build Status" />
+  </a>
+  <a href="https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python Version" />
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License" />
+  </a>
+  <a href="https://github.com/[ТВОЙ_ЛОГИН]">
+    <img src="https://img.shields.io/badge/Author-[ТВОЙ_НИК]-orange.svg?style=flat-square" alt="Author" />
+  </a>
+  <a href="https://t.me/[ИМЯ_ТВОЕГО_БОТА]">
+    <img src="https://img.shields.io/badge/Telegram-Bot-blue.svg?style=flat-square" alt="Telegram Bot" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="README.md">
+    <b>Русское описание</b>
+  </a>
+  |
+  <a href="README_EN.md">
+    <b>English Version</b>
+  </a>
+</p>
 
 # iFixit Repair Telegram Bot
 <h1 align="left">
