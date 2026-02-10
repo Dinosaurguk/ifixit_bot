@@ -107,7 +107,7 @@ async def search_handler(message: types.Message):
     if len(query) < 2:
         return
 
-    status_msg = await message.answer(f"🔎 Ищу `{query}` напрямую на сайте...")
+    status_msg = await message.answer(f"🔎 Ищу `{query}`...")
 
     guides = await scrape_ifixit(query)
     await status_msg.delete()
@@ -132,3 +132,4 @@ async def search_handler(message: types.Message):
 
 if __name__ == "__main__":
     asyncio.run(dp.start_polling(bot))
+
