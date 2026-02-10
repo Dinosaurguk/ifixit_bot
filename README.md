@@ -16,7 +16,7 @@
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License" />
   </a>
   <a href="https://github.com/[ТВОЙ_ЛОГИН]">
-    <img src="https://img.shields.io/badge/Author-[ТВОЙ_НИК]-orange.svg?style=flat-square" alt="Author" />
+    <img src="https://img.shields.io/badge/Author-[dinosaurguk]-orange.svg?style=flat-square" alt="Author" />
   </a>
   <a href="https://t.me/[ИМЯ_ТВОЕГО_БОТА]">
     <img src="https://img.shields.io/badge/Telegram-Bot-blue.svg?style=flat-square" alt="Telegram Bot" />
