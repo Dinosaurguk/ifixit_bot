@@ -3,5 +3,6 @@
    Telegram бот для поиска инструкций по ремонту техники 
 </h1>
 <p align="center">
-  <>
+  <<img width="1679" height="790" alt="изображение" src="https://github.com/user-attachments/assets/80fe9560-a152-445a-aadd-8dc2a96bb046" />
+>
 </p>
