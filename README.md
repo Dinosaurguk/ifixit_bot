@@ -30,7 +30,7 @@
 
 ## Functionality & Libraries
 1. [requests](https://github.com/psf/requests)
-2. [urllib.parse] (https://docs.python.org/3/library/urllib.parse.html)
-3. [html] (https://docs.python.org/3/library/html.html)
+2. [urllib.parse](https://docs.python.org/3/library/urllib.parse.html)
+3. [html](https://docs.python.org/3/library/html.html)
 4. [squlite3](https://docs.python.org/3/library/sqlite3.html)
 5. [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
