@@ -1,293 +1,134 @@
-# bot.py
-import os
-import aiohttp
-from aiogram import Bot, Dispatcher, types, F
+import logging
+from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
+from playwright.async_api import async_playwright
+from urllib.parse import urljoin
+import asyncio
+import random
+import time
 
-# ВСТАВЬ СЮДА СВОЙ ТОКЕН ОТ @BOTFATHER
-API_TOKEN = ""  # ЗАМЕНИ ЭТУ СТРОКУ НА СВОЙ ТОКЕН!
+API_TOKEN = ''  # ← ЗАМЕНИ НА СВОЙ!
 
-# Ключ для iFixit API (публичный демо-ключ)
-IFIXIT_API_KEY = "e1iy329yt1o8723t"
-
-# Проверка токена
-if not API_TOKEN or API_TOKEN == "1234567890:ABCdefGHIjklMNOpqrsTUVwxyz":
-    print("ОШИБКА: Вставь свой токен от @BotFather!")
-    exit(1)
-
-print("Бот запускается...")
-
-IFIXIT_API_URL = "https://www.ifixit.com/api/2.0"
-
-bot = Bot(token=API_TOKEN)
+logging.basicConfig(level=logging.INFO)
+bot = Bot(token=API_TOKEN.strip(), default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN))
 dp = Dispatcher()
 
-# Временное хранилище данных пользователей
-user_sessions = {}
+# Список реальных User-Agents (2026)
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+]
 
-# Заголовки для запросов
-HEADERS = {
-    'User-Agent': 'TelegramRepairBot/1.0'
-}
+async def scrape_ifixit(query: str):
+    """Финальная версия — обходит анти-бот защиту iFixit 2026"""
+    search_url = "https://www.ifixit.com/search"
+    params = {'q': query}
+    url = search_url + "?" + "&".join([f"{k}={v}" for k, v in params.items()])
 
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
 
-# Функция для запросов к публичному API iFixit
-async def make_ifixit_request(endpoint: str, params: dict = None):
-    if params is None:
-        params = {}
+        # === ВАЖНО: Имитация реального пользователя ===
+        await page.set_extra_http_headers({
+            "User-Agent": random.choice(USER_AGENTS),
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+            "Cache-Control": "max-age=0",
+        })
 
-    # Добавляем API ключ к параметрам
-    params['key'] = IFIXIT_API_KEY
+        # === Имитируем поведение человека ===
+        await page.goto(url, timeout=15000)
 
-    url = f"{IFIXIT_API_URL}/{endpoint}"
+        # Ждём, пока страница загрузится (не просто DOM — а JS-данные)
+        await page.wait_for_timeout(3000)  # Ждём 3 секунды
 
-    try:
-        async with aiohttp.ClientSession(headers=HEADERS) as session:
-            async with session.get(url, params=params) as response:
-                if response.status == 200:
-                    return await response.json()
-                else:
-                    print(f"Ошибка API: {response.status}")
-                    return None
-    except Exception as e:
-        print(f"Ошибка запроса: {e}")
-        return None
+        # Прокручиваем страницу — это "человеческое" поведение
+        await page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2);")
+        await page.wait_for_timeout(1500)
 
+        # Кликаем на поле поиска (даже если оно не нужно — это "уверенность" бота)
+        try:
+            await page.locator('input[placeholder="Search for devices, guides, parts"]').click(timeout=2000)
+            await page.wait_for_timeout(800)
+        except:
+            pass  # Не критично
 
-# Обработчик команды /start
+        # Ждём результаты
+        await page.wait_for_selector('div[data-testid="search-result"]', timeout=10000)
+
+        # Извлекаем результаты
+        items = await page.query_selector_all('div[data-testid="search-result"]')
+        results = []
+
+        for item in items[:5]:
+            title_el = await item.query_selector('h3.search-result-title')
+            link_el = await item.query_selector('a')
+            img_el = await item.query_selector('img')
+
+            if not title_el or not link_el:
+                continue
+
+            title = await title_el.text_content()
+            href = await link_el.get_attribute('href')
+            img_src = await img_el.get_attribute('src') if img_el else None
+
+            if not title or not href:
+                continue
+
+            url_full = urljoin("https://www.ifixit.com", href)
+            results.append({
+                'title': title.strip(),
+                'url': url_full,
+                'image': img_src
+            })
+
+        await browser.close()
+        return results
+
 @dp.message(Command("start"))
-async def send_welcome(message: types.Message):
-    welcome_text = """
-🔧 *Привет! Я бот-помощник по ремонту на основе iFixit*
+async def cmd_start(message: types.Message):
+    await message.answer("🔧 **Прямой поиск по iFixit активен.**\nНапиши модель устройства (на английском).")
 
-Введи название устройства, которое хочешь починить:
-• iPhone 13
-• MacBook Pro 2020  
-• PlayStation 5
-• Или любое другое устройство
-
-_Пример: «samsung galaxy s20»_
-    """
-    await message.answer(welcome_text, parse_mode='Markdown')
-
-
-# Поиск устройств
-@dp.message(F.text & ~F.text.startswith('/'))
-async def handle_search(message: types.Message):
-    search_query = message.text.strip()
-
-    if len(search_query) < 2:
-        await message.answer("Введите более конкретный запрос (минимум 2 символа)")
+@dp.message()
+async def search_handler(message: types.Message):
+    query = message.text.strip()
+    if len(query) < 2:
         return
 
-    await message.answer("🔍 Ищу устройства...")
+    status_msg = await message.answer(f"🔎 Ищу `{query}` напрямую на сайте...")
 
-    # Поиск через публичное API iFixit
-    search_data = await make_ifixit_request("search", {'query': search_query})
+    guides = await scrape_ifixit(query)
+    await status_msg.delete()
 
-    if not search_data or not search_data.get('results'):
-        await message.answer("❌ Устройств не найдено. Попробуйте другой запрос.")
+    if not guides:
+        await message.answer("❌ Ничего не найдено. Попробуй: *iPhone 13 battery*, *Samsung S23 screen*")
         return
 
-    # Создаем кнопки с найденными устройствами
-    keyboard = []
-    for device in search_data['results'][:8]:  # Берем первые 8 результатов
-        # Более безопасное извлечение названия устройства
-        device_name = device.get('title', 'Неизвестное устройство')
-        device_id = device.get('docid')
+    for guide in guides:
+        builder = InlineKeyboardBuilder()
+        builder.row(types.InlineKeyboardButton(text="📖 Инструкция", url=guide['url']))
 
-        if device_id and device_name:
-            # Обрезаем длинные названия
-            display_name = device_name[:40] + "..." if len(device_name) > 40 else device_name
-            keyboard.append([
-                types.InlineKeyboardButton(
-                    text=f"📱 {display_name}",
-                    callback_data=f"device_{device_id}"
-                )
-            ])
+        text = f"🛠 **{guide['title']}**"
+        if guide['image']:
+            try:
+                await message.answer_photo(photo=guide['image'], caption=text, reply_markup=builder.as_markup())
+            except Exception as e:
+                logging.warning(f"Не удалось отправить фото: {e}")
+                await message.answer(text=text, reply_markup=builder.as_markup())
+        else:
+            await message.answer(text=text, reply_markup=builder.as_markup())
 
-    if not keyboard:  # Если нет подходящих результатов
-        await message.answer("❌ Устройств не найдено. Попробуйте другой запрос.")
-        return
-
-    reply_markup = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
-    await message.answer("📱 Выберите устройство:", reply_markup=reply_markup)
-
-
-# Показ гайдов для выбранного устройства
-@dp.callback_query(F.data.startswith("device_"))
-async def show_guides(callback: types.CallbackQuery):
-    device_id = callback.data.split('_')[1]
-
-    await callback.message.edit_text("📖 Загружаю руководства...")
-
-    # Получаем гайды для устройства
-    guides_data = await make_ifixit_request("guides", {'device': device_id})
-
-    if not guides_data:
-        await callback.message.edit_text("❌ Руководства не найдены.")
-        return
-# Создаем кнопки с гайдами
-    keyboard = []
-    for guide in guides_data[:10]:  # Берем первые 10 гайдов
-        title = guide.get('title', 'Без названия')
-        guide_id = guide.get('guideid')
-
-        if guide_id and title:
-            display_title = title[:35] + "..." if len(title) > 35 else title
-            keyboard.append([
-                types.InlineKeyboardButton(
-                    text=f"🔧 {display_title}",
-                    callback_data=f"guide_{guide_id}"
-                )
-            ])
-
-    if not keyboard:  # Если нет гайдов
-        await callback.message.edit_text("❌ Руководства не найдены.")
-        return
-
-    # Кнопка "Назад" к поиску
-    keyboard.append([
-        types.InlineKeyboardButton(text="⬅️ Назад к поиску", callback_data="back_to_search")
-    ])
-
-    reply_markup = types.InlineKeyboardMarkup(inline_keyboard=keyboard)
-    await callback.message.edit_text("📚 Доступные руководства:", reply_markup=reply_markup)
-    await callback.answer()
-
-
-# Показ конкретного гайда
-@dp.callback_query(F.data.startswith("guide_"))
-async def show_guide(callback: types.CallbackQuery):
-    guide_id = callback.data.split('_')[1]
-
-    await callback.message.edit_text("🔄 Загружаю руководство...")
-
-    # Получаем полную информацию о гайде
-    guide_data = await make_ifixit_request(f"guide/{guide_id}")
-
-    if not guide_data or 'steps' not in guide_data:
-        await callback.message.edit_text("❌ Ошибка загрузки руководства.")
-        return
-
-    # Сохраняем данные гайда для пользователя
-    user_sessions[callback.from_user.id] = {
-        'guide_data': guide_data,
-        'current_step': 0,
-        'total_steps': len(guide_data['steps'])
-    }
-
-    # Показываем первый шаг
-    await show_guide_step(callback.message, callback.from_user.id, 0)
-    await callback.answer()
-
-
-# Функция показа шага гайда
-async def show_guide_step(message: types.Message, user_id: int, step_index: int):
-    if user_id not in user_sessions:
-        await message.answer("❌ Сессия устарела. Начните поиск заново.")
-        return
-
-    guide_data = user_sessions[user_id]['guide_data']
-    steps = guide_data['steps']
-
-    if step_index < 0 or step_index >= len(steps):
-        await message.answer("🏁 Руководство завершено!")
-        return
-
-    # Обновляем текущий шаг
-    user_sessions[user_id]['current_step'] = step_index
-
-    step = steps[step_index]
-
-    # Извлекаем текст шага
-    step_text = "Описание отсутствует"
-    if step.get('lines') and len(step['lines']) > 0:
-        step_text = step['lines'][0].get('text', 'Описание отсутствует')
-
-    # Формируем текст шага
-    caption = f"*Шаг {step_index + 1}/{len(steps)}*\n\n{step_text}"
-
-    # Получаем URL изображения (если есть)
-    image_url = None
-    if step.get('media') and step['media'].get('image'):
-        image_url = step['media']['image'].get('large')
-
-    # Создаем клавиатуру навигации
-    keyboard_buttons = []
-
-    if step_index > 0:
-        keyboard_buttons.append(
-            types.InlineKeyboardButton(text="⬅️ Назад", callback_data=f"step_{step_index - 1}")
-        )
-
-    if step_index < len(steps) - 1:
-        keyboard_buttons.append(
-            types.InlineKeyboardButton(text="Вперед ➡️", callback_data=f"step_{step_index + 1}")
-        )
-
-    # Кнопка "Назад к гайдам"
-    keyboard_buttons.append(
-        types.InlineKeyboardButton(text="📚 К списку гайдов", callback_data="back_to_guides")
-    )
-
-    reply_markup = types.InlineKeyboardMarkup(inline_keyboard=[keyboard_buttons])
-
-    # Отправляем сообщение с изображением или без
-    if image_url:
-        await message.answer_photo(
-            photo=image_url,
-            caption=caption,
-            reply_markup=reply_markup,
-            parse_mode='Markdown'
-        )
-    else:
-        await message.answer(
-            caption,
-            reply_markup=reply_markup,
-            parse_mode='Markdown'
-        )
-# Обработка навигации по шагам
-@dp.callback_query(F.data.startswith("step_"))
-async def handle_step_navigation(callback: types.CallbackQuery):
-    step_index = int(callback.data.split('_')[1])
-    user_id = callback.from_user.id
-
-    if user_id not in user_sessions:
-        await callback.answer("Сессия устарела")
-        return
-
-    await show_guide_step(callback.message, user_id, step_index)
-    await callback.answer()
-
-
-# Назад к списку гайдов
-@dp.callback_query(F.data == "back_to_guides")
-async def back_to_guides(callback: types.CallbackQuery):
-    if callback.from_user.id in user_sessions:
-        del user_sessions[callback.from_user.id]
-
-    await callback.message.edit_text("Введите название устройства для нового поиска:")
-    await callback.answer()
-
-
-# Назад к поиску
-@dp.callback_query(F.data == "back_to_search")
-async def back_to_search(callback: types.CallbackQuery):
-    if callback.from_user.id in user_sessions:
-        del user_sessions[callback.from_user.id]
-
-    await callback.message.edit_text("Введите название устройства для поиска:")
-    await callback.answer()
-
-
-# Запуск бота
-async def main():
-    print("Бот запущен!")
-    await dp.start_polling(bot)
-
-
-if name == "main":
-    import asyncio
-
-    asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(dp.start_polling(bot))
