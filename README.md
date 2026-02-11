@@ -23,12 +23,6 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="README_EN.md">
-    <b> Русская версия </b>
-  </a>
-</p>
-
 ## iFixit Repair Telegram Bot
 
 <h1 align="left">
