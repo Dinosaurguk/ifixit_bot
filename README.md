@@ -35,7 +35,8 @@
 ## Architecture Diagram
 </h1>
 <p align="center">
-  <img width="322" height="862" alt="изображение" src="https://github.com/user-attachments/assets/a659020c-bcff-497c-b8e2-21dc339af26f" />
+  <img width="1266" height="152" alt="изображение" src="https://github.com/user-attachments/assets/3ec5b5d5-4924-4396-b070-74bc6796d15b" />
+
 
 </p>
 
