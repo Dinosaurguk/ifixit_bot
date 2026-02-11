@@ -55,22 +55,23 @@
 1. **Клонируйте репозиторий:**
    ```bash
    git clone https://github.com/Dinosaurguk/ifixit_bot.git
-   Полезные ссылки
 
-    iFixit.com — официальный сайт
-    iFixit API Docs — документация API
+## Полезные ссылки
 
-Функционал и библиотеки
+* https://ru.ifixit.com/ - сам сайт ifixit
+* https://ru.ifixit.com/api/2.0/doc/ - API документация
 
-    python-telegram-bot
-    requests
-    sqlite3
-    urllib.parse
-    html
+## Функционал и библиотеки
 
-Благодарности и миссия
+1. [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
+2. [requests](https://github.com/psf/requests)
+3. [sqlite3](https://docs.python.org/3/library/sqlite3.html) 
+4. [urllib.parse](https://docs.python.org/3/library/urllib.parse.html) 
+5. [html](https://docs.python.org/3/library/html.html) 
 
-Огромная благодарность команде iFixit за их открытый API и приверженность философии Right to Repair (Право на ремонт). Мы верим, что каждый имеет право чинить свои вещи!
-Лицензия
+## Благодарности и миссия
 
-Этот проект распространяется под лицензией MIT. Подробнее см. в файле LICENSE.
+Огромная благодарность команде [iFixit](https://www.ifixit.com) за их открытый [API](https://www.ifixit.com/api/2.0/doc) и приверженность философии **Right to Repair** (Право на ремонт). 
+
+##Лицензия
+Этот проект распространяется под лицензией MIT. Подробнее см. в файле [LICENSE](LICENSE).
