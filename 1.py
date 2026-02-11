@@ -48,7 +48,7 @@ def search_ifixit_categories(query):
     encoded = urllib.parse.quote(query)
     url = f"https://www.ifixit.com/api/2.0/search/{encoded}?type=category&locale=ru"
 
-    # мусорные кнопочки клак клак, да врятли или врядли я не русский кто то это будет читать ляляллялялялял
+    # мусорные кнопочки клак клак, да врятли или врядли я не русский кто то это будет читать лялялляляляляля
     JUNK = [
         'accessories', 'tools', 'screen', 'display', 'battery', 'adhesive',
         'kit', 'case', 'cable', 'charger', 'glass', 'bundle', 'turn', 'issues',
@@ -263,3 +263,4 @@ if __name__ == '__main__':
     app.add_handler(CommandHandler("history", history_command))
     app.add_handler(CallbackQueryHandler(handle_callback))
     app.run_polling()
+
