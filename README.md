@@ -33,12 +33,29 @@
 Я захотел сделать его потому что мне показалось, что это будет легко и интересно, но с одним я ошибся и было весьма не легко, я никогда не забуду постоянное чувство того, "Что мне стоит переделать все с нуля из-за ошибки в основе кода", и смысла его дорабоатывать или переделывать не остается и легче начать с начала, из-за чего в проекте будет ошибка, что я один раз и сделал :( мне и самому обидно, не ставьте 0, 1, 2, 3, 4. Только 5 пожалуйста и автомат :)
 
 ## Architecture Diagram
-</h1>
-<p align="center">
-  <img width="1266" height="152" alt="изображение" src="https://github.com/user-attachments/assets/3ec5b5d5-4924-4396-b070-74bc6796d15b" />
+```mermaid
+graph LR
+    Start((/start)) --> Welcome[Приветствие]
+    
+    Hist((/history)) --> GetDB[(get_history)] --> ShowHist[Список запросов]
 
+    Repair((/repair)) --> SaveDB[(save_search)] --> API[API Search] --> Filter[JUNK Filter]
+    Filter --> Result{Найдено?}
+    
+    Result -- Нет --> NotFound[Ничего не нашел]
+    Result -- Да --> Models[Выбор модели]
 
-</p>
+    Models --> Callback[Callback] --> GetCat[Загрузка контента]
+    GetCat --> Type{Тип?}
+    
+    Type -- Категории --> Models
+    Type -- Гайды --> Guides[Список поломок]
+
+    Guides --> Steps[Загрузка шагов] --> Render[Шаги по 3 шт] --> Send[Фото + Текст]
+    
+    Send --> Nav{Назад?}
+    Nav -- Да --> Guides
+    Nav -- Нет --> Welcome
 
 ## Usage
 1. Запуск поиска: Введи команду /repair и через пробел название гаджета.
