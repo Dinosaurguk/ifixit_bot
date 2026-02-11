@@ -25,7 +25,7 @@
 
 <p align="center">
   <a href="README_EN.md">
-    <b>English Version 🌐</b>
+    <b> Русская версия </b>
   </a>
 </p>
 
